@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件的基本使用</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h2>欢迎来到{{name}}</h2>
+
+    <button @click="showInfo($event)">点提示消息</button>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el:'#root',
+        data:{
+            name:'鸣启'
+        },
+        methods:{
+
+            showInfo(e){
+                console.log(e.target.innerText)
+                console.log(this) //此处的this是vm  注意： 箭头函数 this指向win，所有不能用箭头函数
+
+            }
+        }
+    })
+</script>
+</html>
