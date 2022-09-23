@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新的一个问题</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!-- 遍历数组 -->
+    <h2>人员列表</h2>
+    <button @click="undate">更新e鸣启3</button>
+    <ul>
+        <li v-for="item in persons" :key="item.id">
+            {{ item.name }} - {{ item.age }}
+            <input type="text">
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                {id: '001', name: 'w鸣启1', age: 51},
+                {id: '002', name: 'q鸣启2', age: 22},
+                {id: '003', name: 'e鸣启3', age: 4},
+                {id: '004', name: 'f鸣启4', age: 5},
+            ],
+        },
+        methods: {
+            undate() {
+                /*this.persons[0].name = '赵越'
+                this.persons[0].age = '32'*/
+                // 上面有效 data和视图都被改变了
+
+                // this.persons[0] = {id: '001', name: '鸣启数字', age: 2}
+                // 上面 data确实被改了，但是视图没刷新
+
+                // 如8-11.Vue监测数据改变的原理 有解释让看
+                this.persons.splice(0,1 , {id: '001', name: '鸣启数字', age: 2})
+            }
+        }
+    })
+</script>
+</html>

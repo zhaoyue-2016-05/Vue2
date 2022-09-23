@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟一个数据监测</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+/*    let data = {
+        name:'鸣启',
+        address:'烟台'
+    }
+    let tmp = '鸣启'
+    setInterval(()=> {
+        console.log('@',tmp)
+        if(data.name !== tmp) {
+            tmp = data.name
+            console.log('name被改了')
+        }
+    },100)*/
+</script>
+</body>
+<div id="root">
+
+</div>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            name:'鸣启',
+            address:'烟台',
+            student:{
+                name:'赵越',
+                age:32
+            }
+        }
+    })
+</script>
+</html>

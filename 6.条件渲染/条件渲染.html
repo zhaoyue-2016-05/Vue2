@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<!--
+    条件渲染：
+        1.v-if
+            写法：
+                一、v-if="表达式"
+                二、v-else-if="表达式"
+                三、v-else="表达式"
+            适用于：切换频率较低的场景。
+            特点：不展示的DOM元素直接被移除
+            注意：v-if可以和:v-else-if、v-else一起使用，但要求结构不能被打断
+        2.v-show
+            写法：v-show="表达式"
+            适用于：切换频率较高的场景。
+            特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉
+        3.备注：使用v-if的时，元素可能无法获取到，而且使用v-show一定可以获取到。
+-->
+<div id="root">
+    <!-- 使用v-show做条件渲染 -->
+    <h2 v-show="isShow">欢迎来到鸣启{{ name }}</h2>
+    <!-- 使用v-if做条件渲染 -->
+    <h2 v-if="isShow">欢迎来到鸣启{{ name }}</h2>
+
+    <h2>当前的n值是：{{ n }}</h2>
+    <button @click="handleAlg">点击</button>
+    <!-- 使用v-show -->
+    <h2>v-show</h2>
+    <div v-show="n === 1">Angular</div>
+    <div v-show="n === 2">Vue3</div>
+    <div v-show="n === 3">Javascript</div>
+    <hr>
+    <!-- 使用v-if -->
+    <h2>v-if</h2>
+    <div v-if="n === 1">Angular</div>
+    <div v-else-if="n === 2">Vue3</div>
+    <div v-else>Javascript</div>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    new Vue({
+        el: '#root',
+        data: {
+            isShow: true,
+            name: '赵越',
+            n: 0
+        },
+        methods: {
+            handleAlg() {
+                if (this.n > 3) {
+                    this.n = 0
+                } else {
+                    this.n++
+                }
+            }
+        }
+    })
+</script>
+</html>

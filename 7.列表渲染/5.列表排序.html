@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表过滤</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!-- 遍历数组 -->
+    <h2>人员列表(遍历数组)</h2>
+    <input type="text" placeholder="请输入名字" v-model="keyWord">
+    <button @click="sortType = 2">年龄升序</button>
+    <button @click="sortType = 1">年龄降序</button>
+    <button @click="sortType = 0">原顺序</button>
+    <ul>
+        <li v-for="item in filPerons" :key="item.id">
+            {{ item.name }} - {{ item.age }}
+            <input type="text">
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+
+    new Vue({
+        el: '#root',
+        data: {
+            keyWord: '',
+            sortType: 0, // 0顺序 1降序 2升序 @click=""
+            persons: [
+                {id: '001', name: 'w鸣启1', age: 51},
+                {id: '002', name: 'q鸣启2', age: 22},
+                {id: '003', name: 'e鸣启3', age: 4},
+                {id: '004', name: 'f鸣启4', age: 5},
+            ],
+        },
+        computed: {
+            filPerons() {
+                const arr = this.persons.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1
+                })
+                // 判断一下是否需要排序
+                if (this.sortType !== 0) {
+                    arr.sort((p1, p2) => {
+                        return this.sortType === 1 ? p1.age - p2.age : p2.age - p1.age
+                    })
+                }
+                return arr
+            }
+        }
+    })
+</script>
+</html>

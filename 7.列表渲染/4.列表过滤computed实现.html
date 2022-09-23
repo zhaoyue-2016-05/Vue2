@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表过滤</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!-- 遍历数组 -->
+    <h2>人员列表(遍历数组)</h2>
+    <input type="text" placeholder="请输入名字" v-model="keyWord">
+    <ul>
+        <li v-for="item in filPerons" :key="item.id">
+            {{ item.name }} - {{ item.age }}
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+
+    new Vue({
+        el: '#root',
+        data: {
+            keyWord:'',
+            persons: [
+                {id: '001', name: 'w鸣启1', age: 2},
+                {id: '002', name: 'q鸣启2', age: 3},
+                {id: '003', name: 'e鸣启3', age: 4},
+                {id: '004', name: 'f鸣启4', age: 5},
+            ],
+        },
+        computed:{
+            filPerons(){
+                return this.persons.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1
+                })
+            }
+        }
+    })
+</script>
+</html>

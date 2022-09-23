@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本列表</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!-- 遍历数组 -->
+    <h2>人员列表(遍历数组)</h2>
+    <ul>
+        <li v-for="item in persons" :key="item.id">
+            {{ item.name }} - {{ item.age }}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(item , index) in persons" :key="item.id">
+            {{ index }} - {{ item.name }}
+        </li>
+    </ul>
+
+    <!-- 遍历对象 -->
+    <h2>专业列表(遍历对象)</h2>
+    <ul>
+        <li v-for="item of car">
+            {{ item }}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(value,key) of car" :key="key">
+            {{ key }} -- {{value}}
+        </li>
+    </ul>
+
+    <!-- 测试遍历字符串 -->
+    <h2>测试遍历字符串(用得少)</h2>
+    <ul>
+        <li v-for="(char,index) of str" :key="index">
+            {{ index }} -- {{char}}
+        </li>
+    </ul>
+
+    <!-- 测试遍历次数 -->
+    <h2>测试遍历次数(用得少)</h2>
+    <ul>
+        <li v-for="(number,index) of 10" :key="index">
+            {{ index }} -- {{number}}
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                {id: '001', name: '鸣启1', age: 2},
+                {id: '002', name: '鸣启2', age: 3},
+                {id: '003', name: '鸣启3', age: 4},
+                {id: '004', name: '鸣启4', age: 5},
+            ],
+            car:{
+                name:'动画',
+                price:'10万',
+                age:2
+            },
+            str:'MingQiNumberKJ'
+
+        }
+    })
+</script>
+</html>

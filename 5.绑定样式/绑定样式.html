@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+    <style type="text/css">
+        .basic {
+            width: 400px;
+            height: 250px;
+            border: 1px solid #000;
+        }
+
+        .happy {
+            background: linear-gradient(to bottom, rgba(169, 3, 41, 1) 0%, rgba(143, 2, 34, 1) 44%, rgba(109, 0, 25, 1) 100%);
+        }
+
+        .sad {
+            background: linear-gradient(to bottom, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
+        }
+
+        .normal {
+            background-color: skyblue;
+        }
+
+        .atguigu1 {
+            background: linear-gradient(to bottom, rgba(143, 200, 0, 1) 0%, rgba(143, 200, 0, 1) 100%);
+        }
+
+        .atguigu2 {
+            color: darkred;
+        }
+
+        .atguigu3 {
+            border-radius: 20px;
+        }
+
+        .atauigu4 {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+<!--
+    绑定样式：
+        1.class样式
+            写法：class="xxx" xxx可以是字符串、对象、数组。
+                字符串写法适用于：类名不确定，要动态获取。
+                对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。
+                数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+        2.style样式
+            :style="{fontSize:xxx}" 其中xxx是动态值。
+            :style="[a,b]" 其中a、b是样式对象。
+ -->
+<div id="root">
+    <!--
+        1、绑定class样式 -- 字符串写法。 适用于：样式的类名不确定，需要动态指定
+    -->
+    <div id="demo1" class="basic" :class="bg1" @click="changeMood1">
+        背景正在变化
+    </div>
+
+    <!--
+        2、绑定class样式 -- 字符串写法。 适用于：样式的类名不确定，需要动态指定
+-->
+    <div id="demo2" class="basic" :class="bg2" @click="changeMood2">
+        背景正在变化
+    </div>
+    <!--
+        3、绑定class样式 -- 数组写法。 适用于：要绑定的样式个数不确定、名字也不确定
+    -->
+    <div id="demo3" class="basic" :class="classArr">
+        背景正在变化
+    </div>
+
+    <!--
+        4、绑定class样式 -- 对象写法。 适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用
+    -->
+    <div id="demo4" class="basic" :class="classObj">
+        背景正在变化
+    </div>
+    <div class="basic" :class="{atguigu1:a,atguigu2:b}">
+        背景正在变化
+    </div>
+    <div class="basic" :style="{fontSize:fSize+'px'}">
+        style字符串
+    </div>
+    <!-- 绑定style样式--对象写法 -->
+    <div class="basic" :style="styleObj">
+        style对象
+    </div>
+    <div class="basic" :style="[styleObj1 , styleObj2]">
+        style数组
+    </div>
+    <!-- 绑定style样式--数组写法 -->
+    <div class="basic" :style="styleArr">
+        style数组对象
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    new Vue({
+        el: '#root',
+        data: {
+            name: '鸣启',
+            bg1: 'normal',
+            bg2: null,
+            classArr: ['atguigu1', 'atguigu2', 'atguigu3', 'atguigu4'],
+            classObj: {
+                atguigu1: false,
+                atguigu2: true,
+                atguigu3: true,
+                atauigu4: false
+            },
+            a: false,
+            b: true,
+            fSize: 40,
+            styleObj: {
+                fontSize: '50px',
+                color: '#f85032'
+            },
+            styleObj1: {
+                fontSize: '60px',
+            },
+            styleObj2: {
+                background: '#f8328b'
+            },
+            styleArr: [
+                {
+                    background: '#3281f8'
+                }, {
+                    fontSize: '60px',
+                }
+            ]
+
+        },
+        methods: {
+            changeMood1() {
+                // document.getElementById('demo1').className = 'basic happy'  //原生写法
+                this.bg1 = 'atauigu4'
+            },
+            changeMood2() {
+                // document.getElementById('demo1').className = 'basic happy'  //原生写法
+                const arr = ['happy', 'sad', 'normal']
+                const index = Math.floor(Math.random() * 3)
+                this.bg2 = arr[index]
+            }
+        }
+    })
+</script>
+</html>

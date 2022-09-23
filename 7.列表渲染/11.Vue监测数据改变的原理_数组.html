@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set的使用</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <!--
+        数组更新检测
+            Vue将被侦听的数组的变更方法进行了包裹，所有它们也将会触发视图更新。这些被包裹过的方法
+            push()
+            pop()
+            shift()
+            unshift()
+            splice()
+            sort()
+            reverse()
+     -->
+
+    <h2>爱好和希望</h2>
+    <!-- 控制台查 hobby数组 里发现getter和setter不见了 -->
+    <ul>
+        <li v-for="(f , i) in student.hobby" :key="i">
+            {{ i }}是{{ f }}
+        </li>
+    </ul>
+
+    <!-- 控制台查 friends数组对象 里getter和setter都存在 -->
+    <ul>
+        <li v-for="(f , i) in student.friends" :key="i">
+            {{ i }}是{{ f.name }} ___{{f.age}}
+        </li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            student: {
+                hobby: ['车', '房子', '工作', '对象'],
+                friends: [
+                    {name: 'jquery', age: 10},
+                    {name: 'web', age: 14}
+                ]
+            }
+        },
+        methods: {}
+    })
+</script>
+</html>

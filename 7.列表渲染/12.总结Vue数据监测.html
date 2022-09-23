@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set的使用</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+<body>
+<!--
+    Vue监视数据的原理：
+        1.vue会监视data中所有层次的数据
+        2.如何监测对象中的数据？
+            通过setter实现监视，而且要在new Vue时就传入要监测的数据。
+                一、对象中后追加的属性，Vue默认不做响应式处理
+                二、如需给后添加的属性做响应式，请使用如下API：
+                    Vue.set(target, propertyName/index , value) 或
+                    vm.$set(target, propertyName/index , value)
+        3.如何监测数组中的数据？
+            通过包裹数组更新元荤素的方法实现，本质就是做了两件事：
+                一、调用原生对应的方法对数组进行更新。
+                二、重新解析模板，进面更新页面。
+        4.在Vue修改数组中的某个元素一定要用如下方法：
+            一、使用这些API：push()、pup()、shift()、splice()、sort()、reverse()
+            二、Vue.set() 或 vm.$set()
+
+        5.替换数组
+            filter()、concant()、 slice()。它们不会变更原始数据，而总是返回一个新数组。当使用非变更方法时，可以用新数组替换旧数组
+
+        特别注意：Vue.set() 和 vm.$set()  不能给vm 或 vm的根数据对象 添加属性！！
+-->
+<div id="root">
+    <h2>公司：{{ company.name }}</h2>
+    <h2>地址：{{ company.address }}</h2>
+    <h2>行业：{{ company.spe }}</h2>
+    <ul>
+        <li v-for="item in company.friends">
+            {{ item.pro }} __和__{{item.age}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(item , index) in company.hobby" :key="index">
+            {{item}}
+        </li>
+    </ul>
+
+    <button @click="addSex">更新性别</button>
+    <button @click="addFriend">更新专业</button>
+    <button @click="removeSmoke">清除</button>
+</div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            company: {
+                name: '鸣启',
+                address: '烟台',
+                hobby:['游戏','旅游','美女'],
+                friends:[
+                    {pro:'java' , age:12},
+                    {pro:'web' , age:23},
+                ]
+            }
+        },
+        methods: {
+            addSex() {
+                this.$set(this.company , 'spe', '科技')
+            },
+            addFriend() {
+                this.company.friends.unshift({pro:'css' , age:33})
+            },
+            removeSmoke(){
+                this.company.hobby = this.company.hobby.filter((h) => {
+                    return h !== '美女'
+                })
+            }
+        }
+    })
+</script>
+</html>
