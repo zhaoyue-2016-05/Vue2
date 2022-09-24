@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../100vueJs/vue.js" type="text/javascript"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
+        需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+     -->
+    <div id="root">
+        <h2>当前的n的值是: <span v-text="n"></span></h2>
+        <h2>放大10倍后的值是: <span v-big-number="n"></span></h2>
+
+        <hr>
+
+        <h2>放大10倍后的值是: <span v-big="n"></span></h2>
+        <button @click="n++">点我n+1</button>
+
+        <hr>
+        <input type="text" v-fbind:value="n">
+    </div>
+
+    <div id="root2">
+        <input type="text" v-fbind:value="x">
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    Vue.directive('fbind', {
+        // 指令与元素成功绑定时  注意 此处是this是windnow
+        bind(element, binding) {
+            element.value = binding.value * 10
+        },
+        // 指令所在元素被插入页面时 
+        inserted(element, binding) {
+
+        },
+        // 指令所在的模板被重新解析时
+        update(element, binding) {
+            element.value = binding.value * 10;
+            element.focus();
+        }
+    })
+    new Vue({
+        el: '#root',
+        data: {
+            n: 1
+        },
+        //自定义指令
+        directives: {
+            // big函数何时回被调用？1.指令与元素成功绑定时。2.指令所在的模板被重新解析时。
+            'big-number'(element, binding) {
+                element.innerText = binding.value * 10
+            },
+
+            big(element, binding) {
+                element.innerText = binding.value * 10
+            }
+        }
+    })
+
+    new Vue({
+        el: '#root2',
+        data: {
+            x: 1
+        }
+    })
+</script>
+
+</html>

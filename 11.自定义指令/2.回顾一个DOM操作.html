@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo {
+            background: darkgoldenrod;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">fbind点我创建一个输入框</button>
+    <script type="text/javascript">
+        const btn = document.getElementById('btn');
+        btn.onclick = () => {
+            const input = document.createElement('input');
+            input.className = 'demo';
+            input.value = '鸣启'
+
+            console.log(input.parentElement) // null
+
+            document.body.appendChild(input);
+
+            console.log(input.parentElement) // 打印出来
+            input.focus();
+        } 
+    </script>
+</body>
+</html>
