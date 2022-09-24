@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+
+     -->
+    <div id="root">
+        <h2>当前的n值是: {{n}}</h2>
+        <button @click="add">点+1</button>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        el: '#root',
+        // template:`
+        //     <div>
+        //         <template>
+        //             <h2>当前的n值是: {{n}}</h2>
+        //             <button @click="add">点+1</button>
+        //         </template>    
+        //     </div>
+        // `,
+        data: {
+            n:1
+        },
+        methods: {
+            add(){
+                this.n++
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate')
+            console.log(this);
+            // debugger;
+            
+        },
+        created() {
+            console.log('created')
+            console.log(this)
+            // debugger;
+        },
+        beforeMount() {
+            console.log('beforeMount')
+            console.log(this)
+            // debugger;
+        },
+        mounted() {
+            console.log('mounted')
+            console.log(this)
+            // debugger;
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate')
+            console.log(this)
+            // debugger;
+        },
+        updated() {
+            console.log('updated')
+            console.log(this)
+            // debugger;
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy')
+            console.log(this)
+            // debugger;
+        },
+        destroyed() {
+            console.log('destroyed')
+            console.log(this)
+            // debugger;
+        },
+    })
+
+</script>
+
+</html>

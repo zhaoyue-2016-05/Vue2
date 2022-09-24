@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../100vueJs/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- 
+        1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+        2.为什么要有这个关系，让组件实例对象（vc）可以访问Vue原型上的属性、方法。
+     -->
+    <div id="root">
+        <ent/>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    Vue.prototype.x = '能访问到Vue原型啊 X'
+    //定义ent组件
+    const ent = Vue.extend({
+        name: 'entName',
+        template: `
+            <div>
+                <h2>公司名称：{{company.name}}</h2>
+                <h2>公司地址：{{company.address}}</h2>
+                <button @click="add">点击</button>
+            </div>
+        `,
+        data() {
+            return {
+                company: {
+                    name: '鸣启',
+                    address: '开发区',
+                }
+            }
+        },
+        methods: {
+            add(){
+                // 访问Vue原型属性名x
+                console.log(this.x)
+            }
+        },
+    })
+
+    new Vue({
+        el: '#root',
+        data:{
+            msg:'鸣启消息'
+        },
+        components:{
+            ent
+        }
+    })
+
+    console.log(Vue.prototype)
+    console.log(ent.prototype)
+    console.log(ent.prototype.__proto__ === Vue.prototype)
+
+
+/*     // 定义一个构造函数
+    function Demo() {
+        this.a = 1
+        this.b = 2
+    }
+    // 创建一个Demo实例对象
+    const d = new Demo();
+    console.log(Demo.prototype) //显示原型属性
+    console.log(d.__proto__) //隐式原型属性
+    console.log(Demo.prototype === d.__proto__) // true
+
+    // 程序员通过显示原型属性操作原型对象，追加一个x属性，值为999
+    Demo.prototype.x = 99;
+    console.log(d.__proto__.x) // 99 */
+</script>
+
+</html>

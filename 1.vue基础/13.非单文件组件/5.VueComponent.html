@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        关于VueComponent：
+            1.school组件本质是一个名为VueComponent的构造函数，而且不是跟程序员定义的，是Vue.extend生成的。
+            2.我们只需写<school><school/>,Vue解析时会帮我们创建school组件的实例对象，
+                即Vue帮我们执行的：new VueComponent(options)
+            3.特别注意：每次调用Vue.extend,返回的都是一个全新的VueComponent！！！
+            4.关于this指向：
+                一、组件配置中：
+                    data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【VueComponent实例对象】
+                二、new Vue(options)配置中：
+                    data函数、methods中的函数、watch中的函数、computed中的函数 他们的this均是【Vue实例对象】。
+            5.VueComponent的实例对象，以后简称cv （也可称之为：组件实例对象）。
+     -->
+    <div id="root">
+        <ent></ent>
+        <hr>
+        <hello></hello>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    //定义ent组件
+    const ent = Vue.extend({
+        name: 'entName',
+        template: `
+            <div>
+                <h2>公司名称：{{company.name}}</h2>
+                <h2>公司地址：{{company.address}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                company: {
+                    name: '鸣启',
+                    address: '开发区',
+                }
+            }
+        }
+    })
+    //定义hello组件
+    const hello = Vue.extend({
+        name: 'helloName',
+        template: `
+            <div>
+                <h2>全局组件,{{msg}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                msg: '测试'
+            }
+        }
+    })
+
+    // console.log('VueComponent',ent ,hello)
+    // 注意虽然都是VueComponent，但是都是独立组件
+
+    // 创建vm
+    new Vue({
+        el: '#root',
+        components: {
+            hello,
+            ent,
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../100vueJs/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- 
+        Vue中使用组件的三大步骤：
+            一、定义组件（创建组件）
+            二、注册组件
+            三、使用组件（写组件标签）
+        一、如何定义一个组件？
+            使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但区别如下：
+             1.el不要写，为什么？————最终所有   的组件都要经过一个vm管理，由vm中的el决定哪个容器
+             2.data必须写函数式，为什么？————避免组件被复用时，数据存在引用关系。
+        备注：使用template可以配置组件结构。
+
+        二、如何注册组件
+            1.局部注册：靠new Vue的时候传入components选项
+            2.全局注册：靠Vue.component('组件名',组件)
+        三、编写组件标签：
+            <组件名>
+     -->
+    <div id="root">
+        <!-- 第三步：编写全局组件标签 -->
+        <hello></hello>
+        <!-- 第三步：编写组件标签 -->
+        <ent />
+        <hr>
+        <!-- 第三步：编写组件标签 -->
+        <people />
+    </div>
+
+    <div id="root2">
+        <!-- 第三步：编写全局组件标签 -->
+        <hello></hello>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    //第一步：创建ent组件//extend是扩展的意思
+    const ent = Vue.extend({
+        //注意：Vue.extend里不能写el: '#root' ，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器，所以一定不要写el配置项
+        template: `
+            <div>
+                <h2>公司名称：{{company.name}}</h2>
+                <h2>公司地址：{{company.address}}</h2>
+                <button @click="showName">点击报控制台</button>
+            </div>
+        `,
+        data() {  // 注意：使用组件时，data不能写对象式，必须使用函数式，否则会报错
+            return {
+                company: {
+                    name: '鸣启',
+                    address: '开发区',
+                }
+            }
+        },
+        methods: {
+            showName() {
+                alert(this.company.name)
+            }
+        },
+    })
+    //第一步：创建people组件
+    const people = Vue.extend({
+        template: `
+            <div>
+                <h2>人员姓名：{{personnel.perName}}</h2>
+                <h2>人员年龄：{{personnel.perAge}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                personnel: {
+                    perName: '赵越',
+                    perAge: 32
+                }
+            }
+        },
+    })
+
+    //第一步：创建全局组件共享
+    const hello = Vue.extend({
+        template: `
+            <div>
+                <h2>全局组件,{{msg}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                msg: '测试'
+            }
+        }
+    })
+
+    //第二部：全局注册组件
+    Vue.component('hello', hello)
+
+    //创建
+    new Vue({
+        el: '#root',
+        // 第二部：注册组件（局部注册）
+        components: {
+            ent,
+            people
+        }
+    })
+
+    //创建
+    new Vue({
+        el: '#root2',
+    })
+</script>
+
+</html>

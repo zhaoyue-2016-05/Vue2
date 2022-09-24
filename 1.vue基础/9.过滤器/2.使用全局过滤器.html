@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+    <script type="text/javascript" src="../100vueJs/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.5/dayjs.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+
+     -->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <!-- 过滤器(传参) -->
+        <h3>现在是：{{time | timeFormater1('YYYY-MM-DD') | mySlie}}</h3>
+        <h2>{{msg | mySlie}}</h2>
+        <input type="text" v-model="msg | mySlie">
+    </div>
+
+    <div id="root2">
+        <h2>现在是：{{time | timeFormater2 | mySlie}}</h2>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    //全局过滤器
+    Vue.filter('mySlie', function (value) {
+        return value.slice(0, 4)
+    })
+    new Vue({
+        el: '#root',
+        data: {
+            time: 1621431344552,
+            msg:'鸣启赵越前端工程师'
+        },
+        filters: {
+            timeFormater1(value, str = 'YYYY-MM-DD HH:mm:ss') {
+                return dayjs(value).format(str)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#root2',
+        data: {
+            time: 1211411344552
+        },
+        filters: {
+            timeFormater2(value, str = 'HH:mm:ss') {
+                return dayjs(value).format(str)
+            }
+        }
+    })
+</script>
+
+</html>

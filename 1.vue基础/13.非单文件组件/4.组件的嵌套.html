@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../100vueJs/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- 
+
+     -->
+    <div id="root">
+        <app />
+        
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    
+
+    //第一步：创建全局组件共享
+    const hello = Vue.extend({
+        template: `
+            <div>
+                <h2>全局组件,{{msg}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                msg: '测试'
+            }
+        }
+    })
+    Vue.component('hello' , hello)
+
+    // 定义peo子组件
+    const peo = Vue.extend({
+        name: 'peoName',
+        template: `
+            <div>
+                <h2>人员名称：{{peoper.name}}</h2>
+                <h2>人员年龄：{{peoper.age}}</h2>
+                <hello/>
+            </div>
+        `,
+        data() {
+            return {
+                peoper: {
+                    name: '鸣启',
+                    age: 32
+                }
+            }
+        },
+        components:{
+            hello
+        }
+    })
+
+    //定义ent组件
+    const ent = Vue.extend({
+        name: 'entName',
+        template: `
+            <div>
+                <h2>公司名称：{{company.name}}</h2>
+                <h2>公司地址：{{company.address}}</h2>
+                <peo/>
+            </div>
+        `,
+        // 局部注册组件
+        components: {
+            peo
+        },
+        data() {
+            return {
+                company: {
+                    name: '鸣启',
+                    address: '开发区',
+                }
+            }
+        }
+    })
+
+    // 定义app父级组件
+    const app = Vue.extend({
+        template:`
+            <div>
+                <ent/>
+                <hello/>
+            </div>
+        `,
+        components:{
+            ent,
+            hello
+        }
+    })
+    
+
+    //创建
+    new Vue({
+        el: '#root',
+        // components: {
+        //     ent: ent,
+        //     peo: peo
+        // }
+
+        // 注册组件（局部）
+        components:{
+            app:app
+        }
+    })
+</script>
+
+</html>
