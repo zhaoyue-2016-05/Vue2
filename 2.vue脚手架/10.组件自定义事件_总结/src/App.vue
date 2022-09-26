@@ -1,13 +1,13 @@
 <template>
   <div class="app">
-    <h1>{{ appTitle }}</h1>
+    <h1>{{ appTitle }} , 学生名称是：{{ studentName }}</h1>
     <!-- 通过父组件给予子组件传递函数类型的props实现：子给父传递数据 -->
     <schoolCom :getSchoolName="getSchoolName"></schoolCom>
     <!-- 通过父组件给予子组件绑定一个自定义事件实现：子给父传递数据 (第一种写法，使用@或v-on) -->
-    <studentCom @emitStudent="emitHandSendStudent" @demo="m1"></studentCom>
+    <!-- <studentCom @emitStudent="emitHandSendStudent" @demo="m1"></studentCom>-->
 
     <!-- 通过父组件给予子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用ref） -->
-    <!--    <studentCom ref="studentRef"></studentCom>-->
+    <studentCom ref="studentRef"></studentCom>
   </div>
 </template>
 <script>
@@ -19,7 +19,8 @@ export default {
   name: "App",
   data() {
     return {
-      appTitle: '鸣启数字科技有限公司'
+      appTitle: '鸣启数字科技有限公司',
+      studentName: ''
     };
   },
   components: {
@@ -32,13 +33,19 @@ export default {
     },
     emitHandSendStudent(name, ...params) {
       console.log('App组件收到了$emit的学生名', name, params)
+      this.studentName = name
     },
-    m1(){
+    m1() {
       console.log('demo事件被触发了！')
     }
   },
   mounted() {
-    // this.$refs['studentRef'].$on('emitStudent', this.emitHandSendStudent)
+    this.$refs['studentRef'].$on('emitStudent', this.emitHandSendStudent)
+
+    // this.$refs['studentRef'].$on('emitStudent', (name, ...params) => {  // 注意：必须使用箭头函数，否则this指向student组件
+    //   console.log('App组件收到了$emit的学生名', name, params)
+    //   this.studentName = name
+    // })
   }
 };
 </script>
