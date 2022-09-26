@@ -4,10 +4,10 @@
     <!-- 通过父组件给予子组件传递函数类型的props实现：子给父传递数据 -->
     <schoolCom :getSchoolName="getSchoolName"></schoolCom>
     <!-- 通过父组件给予子组件绑定一个自定义事件实现：子给父传递数据 (第一种写法，使用@或v-on) -->
-    <studentCom @emitStudent="emitHandSendStudent" @demo="m1"></studentCom>
+    <!-- <studentCom @emitStudent="emitHandSendStudent"></studentCom> -->
 
     <!-- 通过父组件给予子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用ref） -->
-    <!--    <studentCom ref="studentRef"></studentCom>-->
+    <studentCom ref="studentRef"></studentCom>
   </div>
 </template>
 <script>
@@ -30,15 +30,13 @@ export default {
     getSchoolName(name) {
       console.log('App组件收到了学校名', name)
     },
-    emitHandSendStudent(name, ...params) {
-      console.log('App组件收到了$emit的学生名', name, params)
-    },
-    m1(){
-      console.log('demo事件被触发了！')
+    emitHandSendStudent(name,...params) {
+      console.log('App组件收到了$emit的学生名', name,params)
     }
   },
   mounted() {
-    // this.$refs['studentRef'].$on('emitStudent', this.emitHandSendStudent)
+    this.$refs['studentRef'].$on('emitStudent', this.emitHandSendStudent)
+    // this.$refs['studentRef'].$once('emitStudent', this.emitHandSendStudent) //绑定自定义事件一次性执行
   }
 };
 </script>
