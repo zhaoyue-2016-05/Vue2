@@ -1,0 +1,11 @@
+灰色
+dispatch - 处理
+commit - 提交
+mutate - 改变
+render - 渲染
+
+颜色 Vuex区域
+Actions - 行动
+Mutations - 变化
+State - 状态
+
