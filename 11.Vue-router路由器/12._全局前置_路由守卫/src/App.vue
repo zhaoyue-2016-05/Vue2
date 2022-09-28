@@ -2,12 +2,12 @@
   <div id="app" class="container">
     <div class="mq-header">
       <banner></banner>
-      <About></About>
     </div>
     <div class="mq-letf list-group">
       <!-- Vue中借助router-link标签实现路由的切换 -->
-       <router-link class="list-group-item" active-class="active" to="./about">关于鸣启</router-link>
-<!--      <router-link replace class="list-group-item" active-class="active" :to="{name:'aboutPath'}">关于鸣启</router-link>-->
+      <!-- <router-link class="list-group-item" active-class="active" to="./about">关于鸣启</router-link>-->
+      <router-link replace class="list-group-item" active-class="active" :to="{name:'aboutPath'}">关于鸣启</router-link>
+      <br>
       <router-link replace class="list-group-item" active-class="active" to="./home">主页</router-link>
       <br>
     </div>
@@ -21,10 +21,9 @@
 </template>
 <script>
 import banner from '@/components/banner'
-import About from "@/pages/About";
 export default {
   name: 'App',
-  components: {banner,About},
+  components: {banner},
   data() {
     return {}
   },

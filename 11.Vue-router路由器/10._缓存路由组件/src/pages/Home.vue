@@ -4,12 +4,15 @@
     <div>
       <ul class="nav nav-tabs">
         <li>
-          <router-link class="list-group-item" active-class="active" to="/home/news">新闻</router-link>
+          <router-link class="list-group-item" active-class="active" to="/home/news">关于鸣启</router-link>
         </li>
         <li>
-          <router-link class="list-group-item" active-class="active" to="/home/message">消息</router-link>
+          <router-link class="list-group-item" active-class="active" to="/home/message">主页</router-link>
         </li>
       </ul>
+      <!-- 缓存多个路由组件 -->
+      <!-- <keep-alive :include="['NewsCom','messageCom']">-->
+      <!-- 缓存一个路由组件 -->
       <keep-alive include="NewsCom">
         <router-view>
 

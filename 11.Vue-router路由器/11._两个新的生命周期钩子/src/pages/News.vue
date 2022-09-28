@@ -17,6 +17,21 @@ export default {
       opacity:1
     }
   },
+/*  mounted() {
+    console.log('mounted',this)
+    this.timer = setInterval(() => {
+      console.log('@')
+      this.opacity -= 0.01
+      if( this.opacity <= 0){
+        this.opacity = 1
+      }
+    },16)
+  },
+  beforeDestroy() {
+    console.log('News组件即将被销毁了')
+    clearInterval(this.timer)
+  }*/
+
 
   // 路由两个新生命周期
   // 当前组件被激活了

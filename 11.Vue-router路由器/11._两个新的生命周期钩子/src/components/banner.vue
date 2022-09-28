@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-header">
     <button @click="back">后退</button>
     <button @click="forward">前进</button>
     <button @click="go">测试一下go</button>
